@@ -1,2 +1,2 @@
 # actions-poc
-PoC og github actions
+PoC github actions

@@ -1,2 +1,2 @@
 # actions-poc
-PoC github actions
+PoC github actions -- prepare demo

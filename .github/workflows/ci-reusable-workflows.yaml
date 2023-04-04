@@ -32,7 +32,7 @@ jobs:
     
     secrets:
       # Only needed if with:dockerhub-enable is true below
-      dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub-username: ${{ secrets.DOCKERHUB_USER }}
       dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
     with:

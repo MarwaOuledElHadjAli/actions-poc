@@ -10,6 +10,8 @@ on:
     paths:
       - 'vote/**'
       - '.github/workflows/call-docker-build-vote.yaml'
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+"
   pull_request:
     branches:
       - 'main'
@@ -25,27 +27,18 @@ jobs:
 
     uses: dockersamples/.github/.github/workflows/reusable-docker-build.yaml@main
 
-    permissions:
-      contents: read
-      packages: write # needed to push docker image to ghcr.io
-      pull-requests: write # needed to create and update comments in PRs
-    
     secrets:
-
       # Only needed if with:dockerhub-enable is true below
       dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
-
       # Only needed if with:dockerhub-enable is true below
       dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
     with:
-      
       ### REQUIRED
       ### ENABLE ONE OR BOTH REGISTRIES
       ### tell docker where to push.
       ### NOTE if Docker Hub is set to true, you must set secrets above and also add account/repo/tags below
       dockerhub-enable: true
-      ghcr-enable: false
 
       ### REQUIRED 
       ### A list of the account/repo names for docker build. List should match what's enabled above
@@ -68,14 +61,7 @@ jobs:
       
       ### Dockerfile alternate name. Default is Dockerfile (relative to context path)
       # file: Containerfile
-
-      ### build stage to target, defaults to empty, which builds to last stage in Dockerfile
-      # target:
       
       ### platforms to build for, defaults to linux/amd64
       ### other options: linux/amd64,linux/arm64,linux/arm/v7
       platforms: linux/amd64,linux/arm64,linux/arm/v7
-      
-      ### Create a PR comment with image tags and labels
-      ### defaults to false
-      # comment-enable: false

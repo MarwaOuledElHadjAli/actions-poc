@@ -19,7 +19,7 @@ on:
       - '.github/workflows/call-docker-build-result.yaml'
 
 jobs:
-  docker-build:
+  call-docker-build:
 
     name: Result Call Docker Build
 

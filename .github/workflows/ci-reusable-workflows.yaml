@@ -1,4 +1,4 @@
-name: Build Result Reusabale workflow
+name: Build Result Reusable workflow
 # template source: https://github.com/dockersamples/.github/blob/main/templates/call-docker-build.yaml
 
 on:
@@ -31,16 +31,19 @@ jobs:
       pull-requests: write # needed to create and update comments in PRs
     
     secrets:
+
       # Only needed if with:dockerhub-enable is true below
       dockerhub-username: ${{ secrets.DOCKERHUB_USER }}
+      # Only needed if with:dockerhub-enable is true below
       dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
 
     with:
+      
       ### REQUIRED
       ### ENABLE ONE OR BOTH REGISTRIES
       ### tell docker where to push.
+      ### NOTE if Docker Hub is set to true, you must set secrets above and also add account/repo/tags below
       dockerhub-enable: true
-      ghcr-enable: false
 
       ### REQUIRED 
       ### A list of the account/repo names for docker build. List should match what's enabled above
@@ -53,6 +56,8 @@ jobs:
       ### defaults to:
       tag-rules: |
         type=raw,value=latest,enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
+        type=raw,value=before,enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
+        type=raw,value=after,enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
         type=ref,event=pr
       
       ### path to where docker should copy files into image
@@ -65,3 +70,4 @@ jobs:
       ### platforms to build for, defaults to linux/amd64
       ### other options: linux/amd64,linux/arm64,linux/arm/v7
       platforms: linux/amd64,linux/arm64,linux/arm/v7
+      

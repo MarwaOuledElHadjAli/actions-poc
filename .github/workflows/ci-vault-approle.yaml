@@ -24,6 +24,11 @@ jobs:
     name: Worker Call Docker Build
 
     uses: dockersamples/.github/.github/workflows/reusable-docker-build.yaml@main
+
+    permissions:
+      contents: read
+      packages: write # needed to push docker image to ghcr.io
+      pull-requests: write # needed to create and update comments in PRs
     
     secrets:
       # Only needed if with:dockerhub-enable is true below
